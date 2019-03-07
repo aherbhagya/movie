@@ -19,6 +19,10 @@ class IndexView(APIView):
     def get(self, request, *args, **kwargs):
         queryset = Movie.objects.all()
 
+        popularity = request.query_params.get('popularity', None)
+        if popularity is not None:
+            queryset = queryset.filter(popularity__icontains=popularity)
+
         name = request.query_params.get('name', None)
         if name is not None:
             queryset = queryset.filter(name__icontains=name)

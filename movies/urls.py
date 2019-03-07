@@ -4,3 +4,5 @@ from .views import *
 urlpatterns = [
     url(r'^movies', IndexView.as_view(), name='index'),
 ]
+
+

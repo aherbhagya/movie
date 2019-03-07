@@ -19,13 +19,13 @@ pip install -r reuqirements.txt
 API request examples
 
 base API url
-https://pure-fortress-93926.herokuapp.com/api/movies
+http://hiringchallenge.herokuapp.com/api/movies
 
 filter by name (full text search)
-https://pure-fortress-93926.herokuapp.com/api/movies?name=wizard
+http://hiringchallenge.herokuapp.com/api/movies?name=wizard
 
 filter by movie name and director name
-https://pure-fortress-93926.herokuapp.com/api/movies?name=wizard&director=victor
+http://hiringchallenge.herokuapp.com/api/movies?name=wizard&director=victor
 
 filter by genre name
-https://pure-fortress-93926.herokuapp.com/api/movies?genre=family
+http://hiringchallenge.herokuapp.com/api/movies?genre=family

@@ -23,9 +23,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ffgc%@085=yi!w6z!dtz2q8nz1i24udwh2*xt3(1ibz$*(qb*2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG =False
+DEBUG = os.environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = []
+if DEBUG in ['Off','off','No', 'no', 'False','false','0','']:
+    DEBUG = False
+else:
+    DEBUG = True
+
+ALLOWED_HOSTS = [
+    'localhost',
+    'hiringchallenge.herokuapp.com',
+    '*',
+]
+#ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -78,13 +89,19 @@ WSGI_APPLICATION = 'movie.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
 
 
 # Password validation
@@ -122,6 +139,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)   
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
